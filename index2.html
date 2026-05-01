@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grovy — Keep it Grovy 🍋</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --yellow: #FFBA08;
+    --yellow-light: #FFF8E7;
+    --yellow-mid: #FFD55A;
+    --brown: #7B4F00;
+    --brown-light: #A36A00;
+    --cream: #FFF8E7;
+    --green: #6BCB77;
+    --red: #FF5757;
+    --dark: #0D0A00;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--brown);
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--yellow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 60%, #FFD55A 0%, transparent 70%);
+  }
+
+  .hero-content { position: relative; z-index: 2; text-align: center; max-width: 600px; }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--brown);
+    color: var(--yellow);
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .lemmy-wrap {
+    animation: fadeUp 0.6s 0.1s ease both, float 4s 1s ease-in-out infinite;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(56px, 12vw, 100px);
+    font-weight: 800;
+    color: var(--brown);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-sub {
+    font-size: clamp(16px, 3vw, 20px);
+    color: #7B4F0099;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--brown);
+    color: var(--yellow);
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 16px 32px;
+    border-radius: 100px;
+    text-decoration: none;
+    animation: fadeUp 0.6s 0.4s ease both;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .hero-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px #7B4F0030;
+  }
+
+  .hero-cta-sub {
+    display: block;
+    font-size: 12px;
+    color: #7B4F0070;
+    margin-top: 12px;
+    animation: fadeUp 0.6s 0.5s ease both;
+  }
+
+  /* PROBLEM */
+  .problem {
+    background: var(--dark);
+    padding: 6rem 2rem;
+    text-align: center;
+  }
+
+  .problem-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1rem;
+  }
+
+  .problem-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .problem-title span { color: var(--yellow); }
+
+  .problem-sub {
+    font-size: 18px;
+    color: #ffffff60;
+    max-width: 480px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .stat-card {
+    background: #ffffff08;
+    border: 1px solid #ffffff10;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: left;
+  }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+    color: var(--yellow);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label { font-size: 13px; color: #ffffff50; line-height: 1.4; }
+
+  /* FEATURES */
+  .features {
+    padding: 6rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brown-light);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 800;
+    color: var(--brown);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .feature-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px;
+    border: 0.5px solid #FFBA0830;
+    transition: transform 0.2s;
+  }
+
+  .feature-card:hover { transform: translateY(-4px); }
+
+  .feature-card.featured {
+    background: var(--yellow);
+    border-color: var(--yellow);
+  }
+
+  .feature-icon { font-size: 32px; margin-bottom: 16px; display: block; }
+
+  .feature-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 8px;
+  }
+
+  .feature-desc { font-size: 14px; color: var(--brown-light); line-height: 1.6; }
+
+  /* LEMMY MOODS */
+  .moods {
+    background: var(--dark);
+    padding: 6rem 2rem;
+    text-align: center;
+  }
+
+  .moods-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+
+  .moods-sub { font-size: 16px; color: #ffffff50; margin-bottom: 3rem; }
+
+  .moods-grid {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .mood-card {
+    border-radius: 20px;
+    overflow: hidden;
+    width: 160px;
+    transition: transform 0.2s;
+  }
+
+  .mood-card:hover { transform: translateY(-6px); }
+
+  .mood-bg { padding: 24px 16px 16px; display: flex; justify-content: center; }
+  .mood-footer { background: #1a1a1a; padding: 12px; }
+  .mood-name { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+  .mood-desc { font-size: 11px; color: #ffffff50; }
+
+  /* NOTIFICATIONS */
+  .notifs {
+    padding: 6rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .notif-card {
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border-left: 3px solid;
+  }
+
+  .notif-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .notif-body { font-size: 13px; opacity: 0.7; }
+
+  /* CTA */
+  .cta {
+    background: var(--yellow);
+    padding: 6rem 2rem;
+    text-align: center;
+  }
+
+  .cta-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(48px, 10vw, 96px);
+    font-weight: 800;
+    color: var(--brown);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-sub {
+    font-size: 18px;
+    color: #7B4F0080;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--yellow);
+    margin-bottom: 1rem;
+  }
+
+  .footer-links { display: flex; gap: 24px; justify-content: center; margin-bottom: 1.5rem; }
+  .footer-links a { font-size: 13px; color: #ffffff40; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--yellow); }
+  .footer-copy { font-size: 12px; color: #ffffff20; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: linear-gradient(to right, transparent, #FFBA0840, transparent); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Now Available on the App Store</div>
+    <div class="lemmy-wrap">
+      <svg width="120" height="140" viewBox="0 0 48 58" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="24" cy="38" rx="18" ry="15" fill="transparent"/>
+        <ellipse cx="24" cy="30" rx="14" ry="13" fill="#FFD55A"/>
+        <path d="M17 14 Q19 9 24 12 Q29 9 31 14 Q27 10.5 24 13.5 Q21 10.5 17 14Z" fill="#6BCB77"/>
+        <path d="M22 11 Q24 8 26 11" stroke="#4CAF50" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="11" cy="33" rx="3" ry="2.5" fill="#FFD55A"/>
+        <ellipse cx="37" cy="33" rx="3" ry="2.5" fill="#FFD55A"/>
+        <circle cx="20" cy="28" r="3" fill="#fff"/>
+        <circle cx="28" cy="28" r="3" fill="#fff"/>
+        <circle cx="20.8" cy="27.2" r="1.3" fill="#7B4F00"/>
+        <circle cx="28.8" cy="27.2" r="1.3" fill="#7B4F00"/>
+        <circle cx="21.3" cy="26.7" r="0.5" fill="#fff"/>
+        <circle cx="29.3" cy="26.7" r="0.5" fill="#fff"/>
+        <path d="M19 35 Q24 40 29 35" stroke="#7B4F00" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h1 class="hero-title">Keep it<br>Grovy.</h1>
+    <p class="hero-sub">Meet Lemmy — your fridge's new best friend. The only food expiry tracker with a personality.</p>
+    <a href="#" class="hero-cta">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      Download on App Store
+    </a>
+    <span class="hero-cta-sub">Free to download · iOS</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="problem-label">The problem</div>
+  <h2 class="problem-title">Americans waste <span>$1,500</span> in food every year.</h2>
+  <p class="problem-sub">It ends up forgotten in the back of the fridge. Not because people don't care — because nobody made it easy AND fun to keep track.</p>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-num">$1,500</div>
+      <div class="stat-label">Average annual food waste per US household</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">30%</div>
+      <div class="stat-label">Of all food purchased in the US gets thrown away</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Other apps have a receipt scanner or mascot like Lemmy</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-label">What makes Grovy different</div>
+  <h2 class="section-title">Built different. Finally.</h2>
+  <div class="features-grid">
+    <div class="feature-card featured">
+      <span class="feature-icon">🧾</span>
+      <div class="feature-title">AI Receipt Scanner</div>
+      <div class="feature-desc">Take one photo of your grocery receipt. Grovy reads every item and price automatically. Add an entire shopping trip in under a minute — perfect for produce!</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📷</span>
+      <div class="feature-title">Barcode Scanner</div>
+      <div class="feature-desc">Point at any packaged food and Grovy finds it instantly. Name auto-fills from our database of millions of products.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🥦</span>
+      <div class="feature-title">Produce Shelf Life Estimator</div>
+      <div class="feature-desc">Type "Strawberries" and Grovy automatically suggests the expiry date and gives you a storage tip. No more guessing.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🔔</span>
+      <div class="feature-title">Lemmy's Sassy Notifications</div>
+      <div class="feature-desc">"Your yogurt expires TOMORROW. Lemmy is not okay." Notifications you'll actually want to read — and keep turned on.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">💰</span>
+      <div class="feature-title">Money Saved Tracker</div>
+      <div class="feature-desc">See exactly how much money you've saved by not wasting food. Watch your savings grow every week.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🔍</span>
+      <div class="feature-title">Quick Search</div>
+      <div class="feature-desc">Standing in the grocery store? Search your Grovy in seconds to see if you already have something at home.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LEMMY MOODS -->
+<section class="moods">
+  <h2 class="moods-title">Meet Lemmy. 🍋</h2>
+  <p class="moods-sub">Lemmy reacts to your fridge in real time.</p>
+  <div class="moods-grid">
+    <div class="mood-card">
+      <div class="mood-bg" style="background:#FFF8E7">
+        <svg width="100" height="116" viewBox="0 0 48 58">
+          <ellipse cx="24" cy="30" rx="14" ry="13" fill="#FFD55A"/>
+          <path d="M17 14 Q19 9 24 12 Q29 9 31 14 Q27 10.5 24 13.5 Q21 10.5 17 14Z" fill="#6BCB77"/>
+          <ellipse cx="11" cy="33" rx="3" ry="2.5" fill="#FFD55A"/>
+          <ellipse cx="37" cy="33" rx="3" ry="2.5" fill="#FFD55A"/>
+          <circle cx="20" cy="28" r="3" fill="#fff"/>
+          <circle cx="28" cy="28" r="3" fill="#fff"/>
+          <circle cx="20.8" cy="27.2" r="1.3" fill="#7B4F00"/>
+          <circle cx="28.8" cy="27.2" r="1.3" fill="#7B4F00"/>
+          <circle cx="21.3" cy="26.7" r="0.5" fill="#fff"/>
+          <circle cx="29.3" cy="26.7" r="0.5" fill="#fff"/>
+          <path d="M19 35 Q24 40 29 35" stroke="#7B4F00" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="mood-footer">
+        <div class="mood-name">Happy</div>
+        <div class="mood-desc">All food fresh</div>
+      </div>
+    </div>
+    <div class="mood-card">
+      <div class="mood-bg" style="background:#FFF3D6">
+        <svg width="100" height="116" viewBox="0 0 48 58">
+          <ellipse cx="24" cy="30" rx="14" ry="13" fill="#FFB800"/>
+          <path d="M17 14 Q19 9 24 12 Q29 9 31 14 Q27 10.5 24 13.5 Q21 10.5 17 14Z" fill="#6BCB77"/>
+          <ellipse cx="11" cy="33" rx="3" ry="2.5" fill="#FFB800"/>
+          <ellipse cx="37" cy="33" rx="3" ry="2.5" fill="#FFB800"/>
+          <circle cx="20" cy="28" r="3" fill="#fff"/>
+          <circle cx="28" cy="28" r="3" fill="#fff"/>
+          <circle cx="20.8" cy="28" r="1.3" fill="#7B4F00"/>
+          <circle cx="28.8" cy="28" r="1.3" fill="#7B4F00"/>
+          <line x1="17.5" y1="22.5" x2="22.5" y2="22.5" stroke="#7B4F00" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="25.5" y1="22.5" x2="30.5" y2="22.5" stroke="#7B4F00" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="19" y1="36" x2="29" y2="36" stroke="#7B4F00" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="mood-footer">
+        <div class="mood-name">Worried</div>
+        <div class="mood-desc">3–5 days left</div>
+      </div>
+    </div>
+    <div class="mood-card">
+      <div class="mood-bg" style="background:#FFF0E0">
+        <svg width="100" height="116" viewBox="0 0 48 58">
+          <ellipse cx="24" cy="30" rx="14" ry="13" fill="#FF8C00"/>
+          <path d="M17 14 Q19 9 24 12 Q29 9 31 14 Q27 10.5 24 13.5 Q21 10.5 17 14Z" fill="#6BCB77"/>
+          <ellipse cx="11" cy="33" rx="3" ry="2.5" fill="#FF8C00"/>
+          <ellipse cx="37" cy="33" rx="3" ry="2.5" fill="#FF8C00"/>
+          <circle cx="20" cy="28" r="3" fill="#fff"/>
+          <circle cx="28" cy="28" r="3" fill="#fff"/>
+          <circle cx="20.8" cy="28" r="1.3" fill="#7B4F00"/>
+          <circle cx="28.8" cy="28" r="1.3" fill="#7B4F00"/>
+          <line x1="17.5" y1="23.5" x2="22.5" y2="22" stroke="#7B4F00" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="25.5" y1="22" x2="30.5" y2="23.5" stroke="#7B4F00" stroke-width="1.5" stroke-linecap="round"/>
+          <ellipse cx="16" cy="31" rx="2.5" ry="1.5" fill="#FF6B6B" opacity="0.55"/>
+          <ellipse cx="32" cy="31" rx="2.5" ry="1.5" fill="#FF6B6B" opacity="0.55"/>
+          <path d="M19 37 Q24 33 29 37" stroke="#7B4F00" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="mood-footer">
+        <div class="mood-name">Panicked</div>
+        <div class="mood-desc">Expires tomorrow</div>
+      </div>
+    </div>
+    <div class="mood-card">
+      <div class="mood-bg" style="background:#F5F5F5">
+        <svg width="100" height="116" viewBox="0 0 48 58">
+          <ellipse cx="24" cy="30" rx="14" ry="13" fill="#888780"/>
+          <path d="M17 14 Q19 9 24 12 Q29 9 31 14 Q27 10.5 24 13.5 Q21 10.5 17 14Z" fill="#888780"/>
+          <ellipse cx="11" cy="33" rx="3" ry="2.5" fill="#888780"/>
+          <ellipse cx="37" cy="33" rx="3" ry="2.5" fill="#888780"/>
+          <line x1="19" y1="26" x2="23" y2="30" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          <line x1="23" y1="26" x2="19" y2="30" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          <line x1="25" y1="26" x2="29" y2="30" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          <line x1="29" y1="26" x2="25" y2="30" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          <path d="M19 36 Q24 32 29 36" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="mood-footer">
+        <div class="mood-name">Dead</div>
+        <div class="mood-desc">Already expired</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- NOTIFICATIONS -->
+<section class="notifs">
+  <div class="section-label">Lemmy's voice</div>
+  <h2 class="section-title">Notifications that actually make you smile.</h2>
+  <div class="notif-card" style="background:#6BCB7715;border-color:#6BCB77">
+    <div class="notif-title" style="color:#6BCB77">Your fridge is immaculate. Lemmy approves.</div>
+    <div class="notif-body" style="color:#6BCB7799">Zero expiries this week. You're basically a chef now.</div>
+  </div>
+  <div class="notif-card" style="background:#FFBA0815;border-color:#FFBA08">
+    <div class="notif-title" style="color:#FFBA08">Hey... that chicken though. 3 days left.</div>
+    <div class="notif-body" style="color:#FFBA0899">Just a heads up. No pressure. Actually a little pressure.</div>
+  </div>
+  <div class="notif-card" style="background:#FF8C0015;border-color:#FF8C00">
+    <div class="notif-title" style="color:#FF8C00">Your yogurt expires TOMORROW. Tomorrow!!</div>
+    <div class="notif-body" style="color:#FF8C0099">Lemmy is not okay. Please do something about this.</div>
+  </div>
+  <div class="notif-card" style="background:#88878015;border-color:#888780">
+    <div class="notif-title" style="color:#888780">RIP your spinach. Gone but not forgotten.</div>
+    <div class="notif-body" style="color:#88878099">It could've been a smoothie. It could've been great.</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA -->
+<section class="cta">
+  <h2 class="cta-title">Keep it<br>Grovy. 🍋</h2>
+  <p class="cta-sub">Free to download. Start saving money today.</p>
+  <a href="#" class="hero-cta">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+    Download on App Store
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Grovy 🍋</div>
+  <div class="footer-links">
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/support">Support</a>
+    <a href="mailto:getgrovy.app@gmail.com">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 Grovy. Keep it Grovy.</div>
+</footer>
+
+</body>
+</html>
