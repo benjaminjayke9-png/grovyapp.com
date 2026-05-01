@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support — Grovy</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --yellow: #FFBA08;
+    --yellow-light: #FFF8E7;
+    --yellow-mid: #FFD55A;
+    --brown: #7B4F00;
+    --brown-light: #A36A00;
+    --cream: #FFF8E7;
+    --green: #6BCB77;
+    --red: #FF5757;
+    --dark: #0D0A00;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--brown);
+    overflow-x: hidden;
+  }
+
+  nav {
+    background: var(--yellow);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--brown);
+    text-decoration: none;
+  }
+
+  .nav-back {
+    font-size: 13px;
+    color: #7B4F0080;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-back:hover { color: var(--brown); }
+
+  /* HERO */
+  .support-hero {
+    background: var(--yellow);
+    padding: 4rem 2rem 5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .support-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 80%, #FFD55A 0%, transparent 70%);
+  }
+
+  .support-hero-content { position: relative; z-index: 2; }
+
+  .lemmy-small {
+    margin-bottom: 1.5rem;
+    animation: float 4s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  .page-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(48px, 10vw, 80px);
+    font-weight: 800;
+    color: var(--brown);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+  }
+
+  .page-subtitle {
+    font-size: 18px;
+    color: #7B4F0080;
+    font-weight: 300;
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* CONTACT CARDS */
+  .contact-section {
+    max-width: 800px;
+    margin: -2rem auto 0;
+    padding: 0 2rem 4rem;
+    position: relative;
+    z-index: 3;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 4rem;
+  }
+
+  .contact-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px;
+    border: 0.5px solid #FFBA0830;
+    text-decoration: none;
+    color: var(--brown);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: block;
+  }
+
+  .contact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px #FFBA0820;
+  }
+
+  .contact-card.featured {
+    background: var(--yellow);
+    border-color: var(--yellow);
+  }
+
+  .contact-icon { font-size: 32px; margin-bottom: 16px; display: block; }
+
+  .contact-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 6px;
+  }
+
+  .contact-desc {
+    font-size: 14px;
+    color: var(--brown-light);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* FAQ */
+  .faq-section {
+    background: var(--dark);
+    padding: 5rem 2rem;
+  }
+
+  .faq-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1rem;
+  }
+
+  .faq-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 2.5rem;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid #ffffff10;
+    overflow: hidden;
+  }
+
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 20px 0;
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    transition: color 0.2s;
+  }
+
+  .faq-question:hover { color: var(--yellow); }
+
+  .faq-chevron {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ffffff10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: transform 0.3s, background 0.2s;
+  }
+
+  .faq-item.open .faq-chevron {
+    transform: rotate(180deg);
+    background: var(--yellow);
+    color: var(--brown);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+
+  .faq-item.open .faq-answer { max-height: 300px; }
+
+  .faq-answer-inner {
+    padding: 0 0 20px;
+    font-size: 15px;
+    color: #ffffff60;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  .faq-answer-inner a {
+    color: var(--yellow);
+    text-decoration: none;
+  }
+
+  /* TIPS SECTION */
+  .tips-section {
+    padding: 5rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 2.5rem;
+  }
+
+  .tip-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    border: 0.5px solid #FFBA0830;
+  }
+
+  .tip-step {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    background: #FFBA0815;
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+  }
+
+  .tip-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 6px;
+  }
+
+  .tip-desc {
+    font-size: 13px;
+    color: var(--brown-light);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* HIGHLIGHT */
+  .highlight {
+    background: #FFBA0820;
+    border-left: 3px solid var(--yellow);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 1rem;
+  }
+
+  .highlight p {
+    font-size: 15px;
+    color: var(--brown);
+    font-weight: 500;
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--yellow);
+    margin-bottom: 1rem;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: #ffffff40;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--yellow); }
+  .footer-copy { font-size: 12px; color: #ffffff20; }
+
+  .divider { height: 1px; background: linear-gradient(to right, transparent, #FFBA0840, transparent); }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .support-hero-content { animation: fadeUp 0.6s ease both; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Grovy 🍋</a>
+  <a href="/" class="nav-back">← Back to home</a>
+</nav>
+
+<!-- HERO -->
+<section class="support-hero">
+  <div class="support-hero-content">
+    <div class="lemmy-small">
+      <svg width="120" height="140" viewBox="0 0 48 58" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="24" cy="38" rx="18" ry="15" fill="transparent"/>
+        <ellipse cx="24" cy="30" rx="14" ry="13" fill="#FFD55A"/>
+        <path d="M17 14 Q19 9 24 12 Q29 9 31 14 Q27 10.5 24 13.5 Q21 10.5 17 14Z" fill="#6BCB77"/>
+        <path d="M22 11 Q24 8 26 11" stroke="#4CAF50" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="11" cy="33" rx="3" ry="2.5" fill="#FFD55A"/>
+        <ellipse cx="37" cy="33" rx="3" ry="2.5" fill="#FFD55A"/>
+        <circle cx="20" cy="28" r="3" fill="#fff"/>
+        <circle cx="28" cy="28" r="3" fill="#fff"/>
+        <circle cx="20.8" cy="27.2" r="1.3" fill="#7B4F00"/>
+        <circle cx="28.8" cy="27.2" r="1.3" fill="#7B4F00"/>
+        <circle cx="21.3" cy="26.7" r="0.5" fill="#fff"/>
+        <circle cx="29.3" cy="26.7" r="0.5" fill="#fff"/>
+        <path d="M19 35 Q24 40 29 35" stroke="#7B4F00" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h1 class="page-title">How can<br>Lemmy help?</h1>
+    <p class="page-subtitle">We're a small team and we actually read every message. Usually within 24 hours.</p>
+  </div>
+</section>
+
+<!-- CONTACT CARDS -->
+<div class="contact-section">
+  <div class="contact-grid">
+    <a href="mailto:getgrovy.app@gmail.com" class="contact-card featured">
+      <span class="contact-icon">✉️</span>
+      <div class="contact-title">Email us</div>
+      <div class="contact-desc">getgrovy.app@gmail.com — fastest way to reach us. We reply within 24 hours.</div>
+    </a>
+    <a href="https://instagram.com/getgrovy.app" target="_blank" class="contact-card">
+      <span class="contact-icon">📸</span>
+      <div class="contact-title">Instagram</div>
+      <div class="contact-desc">@getgrovy.app — DM us on Instagram. We love hearing from users!</div>
+    </a>
+    <div class="contact-card">
+      <span class="contact-icon">🍋</span>
+      <div class="contact-title">In-app feedback</div>
+      <div class="contact-desc">Go to Settings → Feedback inside Grovy to send us a note directly from the app.</div>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <p>🍋 Lemmy says: "I personally forward every support email to the humans. I am very responsible."</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="section-label">Common questions</div>
+    <h2 class="faq-title">FAQs</h2>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How does the AI receipt scanner work?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Take a photo of any grocery receipt and Grovy sends it to Anthropic's Claude AI to read the items and prices. The image is processed instantly and never stored — not by us, not anywhere. The whole thing takes about 10 seconds and adds your entire shopping trip automatically.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Is my food data private?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">100%. Everything you enter in Grovy stays on your device only. We never see it, never store it on our servers, and never sell it. Check our <a href="/privacy">Privacy Policy</a> for the full details — it's written in plain English, not lawyer speak.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        The barcode scanner isn't recognizing my product. What do I do?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Try scanning in better lighting, and make sure the barcode fills most of the frame. If it still won't scan, you can always add items manually using the manual entry option. Some very local or store-brand products may not be in our database yet — email us the barcode and we'll look into it.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How do I delete all my data?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Go to Settings → Clear All Data inside the app. Since everything is stored locally on your device, that's all you need to do. You can also just delete the app — we have nothing on our end to delete.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Why aren't I getting notifications?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Check that notifications are enabled for Grovy in your iPhone's Settings → Notifications → Grovy. Also make sure you've added some food items with expiry dates set — Lemmy can only remind you about things that exist! If it's still not working, email us.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        What is Grovy Pro?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Grovy Pro is coming soon! It'll unlock unlimited food items, advanced stats, extra Lemmy moods, and more. The core app is free and always will be. Stay tuned — Lemmy is working hard on it.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        I found a bug. How do I report it?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Please email us at <a href="mailto:getgrovy.app@gmail.com">getgrovy.app@gmail.com</a> with a description of what happened and what device/iOS version you're on. Screenshots are super helpful. We take bugs seriously and fix them fast.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TIPS -->
+<section class="tips-section">
+  <div class="section-label">Get the most out of Grovy</div>
+  <h2 style="font-family:'Syne',sans-serif;font-size:clamp(32px,5vw,48px);font-weight:800;color:var(--brown);line-height:1.05;letter-spacing:-0.02em;">Quick start tips</h2>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <span class="tip-step">Tip 1</span>
+      <div class="tip-title">Scan your receipt first</div>
+      <div class="tip-desc">After a grocery run, use the AI receipt scanner to add everything at once. It's way faster than manual entry.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-step">Tip 2</span>
+      <div class="tip-title">Type produce names</div>
+      <div class="tip-desc">For fruits and veggies, just type the name — Grovy will auto-suggest a shelf life and storage tip.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-step">Tip 3</span>
+      <div class="tip-title">Keep notifications on</div>
+      <div class="tip-desc">Lemmy's alerts are the whole point. They're funny, I promise. You'll actually want to read them.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-step">Tip 4</span>
+      <div class="tip-title">Check Stats weekly</div>
+      <div class="tip-desc">The Stats tab shows how much money you've saved. It's genuinely satisfying to watch that number grow.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Grovy 🍋</div>
+  <div class="footer-links">
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/support">Support</a>
+    <a href="mailto:getgrovy.app@gmail.com">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 Grovy. Keep it Grovy.</div>
+</footer>
+
+<script>
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+
+</body>
+</html>
